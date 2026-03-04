@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculater</title>
+</head>
+<body>
+    <h2> Age Calculator</h2>
+    <input type="date" id="birthDate"/ >
+    <button onclick="calculateAge()">Calculate Age</button>
+    <h3 id="result"></h3>
+    <script>
+        async function calculateAge(){
+            const birthData=document.getElementById("birthDate").value;
+            const response=await fetch(
+                "/Sonam_Bodhak_01-age-calculator/calculate-age",
+                {
+                    method:"POST",
+                    headers:{
+                       "Content-Type":"application/json" 
+                    },
+                    body:JSON.stringify({birthDate})
+                });
+                const data=await response.json();
+             if(data.success)
+             {
+             document.getElementById("result").innerHTML= 
+             "Your Age is:"+data.age;            
+        }
+        else{
+            document.getElementById("result").innerHTML=
+            data.message;
+        }}
+        
+        </script>
+</body>
+</html>
